@@ -1,8 +1,11 @@
 # coding=utf-8
+import sys
+sys.path.append("..")
+
 from setting import setting_bot
 import requests
 import datetime
-from rate import currency
+from spam_bot.rate import currency
 
 
 class BotHandler(object):

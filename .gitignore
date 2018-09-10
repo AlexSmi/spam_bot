@@ -2,3 +2,4 @@ setting.py
 .idea
 __init__.py
 __pycache__
+.bot_run
