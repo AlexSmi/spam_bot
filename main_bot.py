@@ -1,6 +1,4 @@
 # coding=utf-8
-# import sys
-# sys.path.append("..")
 from setting import setting_bot
 import requests
 import datetime
