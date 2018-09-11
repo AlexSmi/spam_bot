@@ -1,11 +1,10 @@
 # coding=utf-8
-import sys
-sys.path.append("..")
-
+# import sys
+# sys.path.append("..")
 from setting import setting_bot
 import requests
 import datetime
-from spam_bot.rate import currency
+from rate import currency
 
 
 class BotHandler(object):
@@ -46,8 +45,8 @@ now = datetime.datetime.now()
 
 def main():
     new_offset = None
-    today = now.day
-    hour = now.hour
+    # today = now.day
+    # hour = now.hour
 
     while True:
         print(greet_bot.get_updates(new_offset))
@@ -57,7 +56,7 @@ def main():
         last_update_id = last_update['update_id']
         last_chat_text = last_update['message']['text']
         last_chat_id = last_update['message']['chat']['id']
-        last_chat_name = last_update['message']['chat']['first_name']
+        # last_chat_name = last_update['message']['chat']['first_name']
         greet_bot.send_message(last_chat_id,
                                'select your choice: avg, black, commercial, government, interbank')
 

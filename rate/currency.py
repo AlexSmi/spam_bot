@@ -1,7 +1,4 @@
 # coding=utf-8
-import sys
-sys.path.append("..")
-
 import requests
 import json
 import os
@@ -18,7 +15,7 @@ today_key = '840'
 headers = {
     "X-Mashape-Key": mashape_key['X-Mashape-Key'],
     "Accept": "application/json"
-  }
+}
 day = datetime.date.today().strftime('%d.%m.%Y')
 
 
