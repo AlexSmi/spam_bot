@@ -5,8 +5,7 @@ from base.items import HTML
 
 def dialog():
     answer = yield "Здравствуйте! Меня забыли наградить именем, а как зовут вас?"
-    # убираем ведущие знаки пунктуации, оставляем только
-    # первую компоненту имени, пишем её с заглавной буквы
+
     name = answer.text.rstrip(".!").split()[0].capitalize()
     print(name)
     likes_python = yield from ask_yes_or_no(
@@ -32,7 +31,7 @@ def ask_yes_or_no(question):
 def discuss_good_python(name):
     answer = yield "Мы с вами, %s, поразительно похожи! Что вам нравится в нём больше всего?" % name
     likes_article = yield from ask_yes_or_no(
-        "Ага. А как вам, кстати, Вам код Максима? Понравилась?")
+        "Ага. А как вам, кстати, код Максима? Понравилась?")
     if likes_article:
         answer = yield "Чудно!"
     else:

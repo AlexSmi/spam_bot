@@ -12,17 +12,19 @@ from telegram import ReplyKeyboardMarkup
 from telegram import ReplyMarkup
 
 from base.items import Message
-from rate.currency import Currency
-get_currency = Currency()
+
+import logging
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 
 class DialogBot(object):
 
-    def __init__(self, generator, handlers=None, token=setting_bot.get('bot_token')):
+    def __init__(self, generator, token=setting_bot.get('bot_token')):
         self.updater = Updater(token=token)
         handler = MessageHandler(Filters.text | Filters.command, self.handle_message)
         self.updater.dispatcher.add_handler(handler)
-        self.handlers = collections.defaultdict(generator, handlers or {})
+        self.handlers = collections.defaultdict(generator)
 
     def start(self):
         self.updater.start_polling()
@@ -32,11 +34,7 @@ class DialogBot(object):
         chat_id = update.message.chat_id
         if update.message.text == "/start":
             self.handlers.pop(chat_id, None)
-        if update.message.text == "/usd":
-            correct = get_currency.select_currency
-            rate = 'commercial'
-            for key, value in correct(rate):
-                bot.sendMessage(chat_id=update.message.chat_id, text="{}".format(correct))
+
         if chat_id not in self.handlers:
             answer = next(self.handlers[chat_id])
         else:
@@ -48,7 +46,7 @@ class DialogBot(object):
         self._send_answer(bot, chat_id, answer)
 
     def _send_answer(self, bot, chat_id, answer):
-        print("Sending answer %r to %s" % (answer, chat_id))
+        print("Sending answer %r to %s and %r" % (answer, chat_id, bot))
         if isinstance(answer, collections.abc.Iterable) and not isinstance(answer, str):
             # мы получили несколько объектов -- сперва каждый надо обработать
             answer = list(map(self._convert_answer_part, answer))
